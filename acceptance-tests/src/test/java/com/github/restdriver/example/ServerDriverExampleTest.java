@@ -16,14 +16,18 @@
 package com.github.restdriver.example;
 
 import static com.github.restdriver.example.TestDriver.*;
+import static com.github.restdriver.serverdriver.Json.*;
 import static com.github.restdriver.serverdriver.Matchers.*;
 import static com.github.restdriver.serverdriver.RestServerDriver.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
+import org.codehaus.jackson.JsonNode;
 import org.junit.Test;
+import org.w3c.dom.Element;
 
 import com.github.restdriver.serverdriver.http.Url;
+import com.github.restdriver.serverdriver.http.response.Response;
 import com.github.restdriver.serverdriver.matchers.HasResponseBody;
 import com.github.restdriver.serverdriver.matchers.HasStatusCode;
 
@@ -70,6 +74,30 @@ public class ServerDriverExampleTest {
     public void getUsingQueryParam() {
         Url url = hello().withParam("name", "Jeff");
         assertThat(getting(url), hasResponseBody(is("Hello Jeff")));
+    }
+    
+    /**
+     * We provide a series of Hamcrest JSON matchers which match a Jackson {@link JsonNode}.
+     * 
+     * As the {@link Response#asJson()} method simply returns a Jackson {@link JsonNode} you have the
+     * option of matching those JSON nodes using simple assertions.
+     */
+    @Test
+    public void getJson() {
+        Response response = get(person(), header("Accept", "application/json"));
+        assertThat(response.asJson(), hasJsonValue("name", is("Jeff")));
+        assertThat(response.asJson(), hasJsonPath("$.age", is(42)));
+    }
+    
+    /**
+     * There is a {@link Response#asXml()} method which returns an {@link Element} so Hamcrest's
+     * XPath matchers can be used for XML content.
+     */
+    @Test
+    public void getXml() {
+        Response response = get(person(), header("Accept", "application/xml"));
+        assertThat(response.asXml(), hasXPath("/person/@name", is("Jeff")));
+        assertThat(response.asXml(), hasXPath("/person/@age", is("42")));
     }
     
 }

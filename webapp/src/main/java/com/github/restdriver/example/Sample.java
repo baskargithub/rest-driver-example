@@ -16,11 +16,20 @@
 package com.github.restdriver.example;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 @Path("/")
 public class Sample {
+    
+    private final EchoClient echoClient;
+    
+    public Sample(EchoClient echoClient) {
+        this.echoClient = echoClient;
+    }
     
     @GET
     @Path("/hello")
@@ -30,6 +39,26 @@ public class Sample {
         } else {
             return "Hello " + name;
         }
+    }
+    
+    @GET
+    @Path("/person")
+    @Produces(MediaType.APPLICATION_JSON)
+    public final String produceJson() {
+        return "{\"name\":\"Jeff\",\"age\":42}";
+    }
+    
+    @GET
+    @Path("/person")
+    @Produces(MediaType.APPLICATION_XML)
+    public final String produceXml() {
+        return "<person name='Jeff' age='42' />";
+    }
+    
+    @POST
+    @Path("/echo")
+    public final String echo(String content) {
+        return echoClient.echo(content);
     }
     
 }

@@ -16,9 +16,9 @@
     <properties>
         <skipCargo>false</skipCargo>
         <cargoGoal>start</cargoGoal>
-        <port>8080</port>
+        <containerPort>8080</containerPort>
         <contextRoot>example</contextRoot>
-        <baseUrl>http://localhost:${port}/${contextRoot}</baseUrl>
+        <baseUrl>http://localhost:${containerPort}/${contextRoot}</baseUrl>
     </properties>
 
     <build>
@@ -33,6 +33,7 @@
                     <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                     <systemPropertyVariables>
                         <baseUrl>${baseUrl}</baseUrl>
+                        <clientDriverPort>${clientDriverPort}</clientDriverPort>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>
@@ -69,7 +70,7 @@
                     </container>
                     <configuration>
                         <properties>
-                            <cargo.servlet.port>${port}</cargo.servlet.port>
+                            <cargo.servlet.port>${containerPort}</cargo.servlet.port>
                             <cargo.logging>low</cargo.logging>
                         </properties>
                         <deployables>

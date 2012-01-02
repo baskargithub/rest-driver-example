@@ -13,6 +13,15 @@
 
     <name>REST Driver example webapp</name>
     <description>An example webapp which will aid demonstration of the REST Server Driver</description>
+    
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
 
     <dependencies>
         <dependency>

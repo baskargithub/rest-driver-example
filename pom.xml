@@ -12,7 +12,7 @@
     <url>https://github.com/rest-driver/rest-driver-example</url>
 
     <properties>
-        <restDriverPort>8081</restDriverPort>
+        <clientDriverPort>8081</clientDriverPort>
     
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -20,6 +20,7 @@
         <junit.version>4.10</junit.version>
         <restdriver.version>1.1.17</restdriver.version>
         <resteasy.version>2.3.0.GA</resteasy.version>
+        <slf4j.version>1.6.4</slf4j.version>
         <spring.version>3.1.0.RELEASE</spring.version>
     </properties>
 

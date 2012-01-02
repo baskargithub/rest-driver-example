@@ -26,7 +26,7 @@ import com.github.restdriver.serverdriver.http.Url;
  */
 public final class TestDriver {
     
-    private static final String DEFAULT_BASE_URL = "http://localhost:8081/example";
+    private static final String DEFAULT_BASE_URL = "http://localhost:8080/example";
     
     private TestDriver() {
     }
@@ -39,11 +39,23 @@ public final class TestDriver {
         return System.getProperty("baseUrl", DEFAULT_BASE_URL);
     }
     
+    public static int clientDriverPort() {
+        return Integer.valueOf(System.getProperty("clientDriverPort", "8081"));
+    }
+    
     /**
      * An example of using the {@link Url} class to create a URL.
      */
     public static Url hello() {
         return url(baseUrl()).withPath("hello"); 
+    }
+    
+    public static Url person() {
+        return url(baseUrl()).withPath("person");
+    }
+    
+    public static Url echo() {
+        return url(baseUrl()).withPath("echo");
     }
     
 }
